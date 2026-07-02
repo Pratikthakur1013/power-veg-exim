@@ -43,6 +43,7 @@ export type LoginEventType =
   | "otp_verified"
   | "otp_fail"
   | "password_reset"
+  | "password_reset_initiated"
   | "session_expired";
 
 export interface LoginLog {

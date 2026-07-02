@@ -6,6 +6,8 @@ import {
 } from "lucide-react";
 import { Product, GalleryItem, Certification, CountryCard, Inquiry, WebsiteSettings, CompanyProfile } from "../types";
 
+import { useAuth } from "../context/AuthContext";
+
 interface AdminPanelProps {
   onClose: () => void;
   publicData: {
@@ -20,12 +22,8 @@ interface AdminPanelProps {
 }
 
 export default function AdminPanel({ onClose, publicData, onRefreshData }: AdminPanelProps) {
-  // Authentication State
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("admin@powerveg.com");
-  const [password, setPassword] = useState<string>("admin");
-  const [loginError, setLoginError] = useState<string>("");
-  const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
+  const { logout } = useAuth();
+  const isAuthenticated = true; // Governed by AuthGuard at router level
 
   // Dashboard Tabs
   const [activeTab, setActiveTab] = useState<"dashboard" | "products" | "gallery" | "certifications" | "countries" | "settings" | "inquiries">("dashboard");
@@ -63,14 +61,6 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
     logoUrl: "", whatsappNumber: "", email: "", phone: "", address: "", bannerTitle: "", bannerSubtitle: "", facebookUrl: "", instagramUrl: "", linkedinUrl: "", twitterUrl: ""
   });
 
-  // Check auth status on load
-  useEffect(() => {
-    const adminSession = localStorage.getItem("powerveg_admin_logged");
-    if (adminSession === "true") {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
   // Fetch inquiries when authenticated
   useEffect(() => {
     if (isAuthenticated) {
@@ -100,38 +90,13 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
     }
   };
 
-  // Handle Admin Authorization
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoginError("");
-    setIsLoggingIn(true);
-
+  const handleLogout = async () => {
     try {
-      const res = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data = await res.json();
-      if (res.ok && data.success) {
-        localStorage.setItem("powerveg_admin_logged", "true");
-        setIsAuthenticated(true);
-        showToast("Authenticated successfully. Welcome back Admin!");
-      } else {
-        setLoginError(data.error || "Login failed");
-      }
+      await logout();
+      showToast("Logged out successfully.");
     } catch (err) {
-      setLoginError("Could not connect to server backend.");
-    } finally {
-      setIsLoggingIn(false);
+      showToast("Logout failed.", "error");
     }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("powerveg_admin_logged");
-    setIsAuthenticated(false);
-    showToast("Logged out successfully.");
   };
 
   // --- CRUD: Products ---
@@ -498,79 +463,6 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
 
   // Extract unique countries in inquiries list
   const uniqueInquiryCountries = Array.from(new Set(inquiries.map(i => i.country).filter(Boolean)));
-
-  // If NOT authenticated, display professional corporate login card
-  if (!isAuthenticated) {
-    return (
-      <div className="fixed inset-0 z-50 bg-[#001D33]/90 flex items-center justify-center p-4 blur-backdrop">
-        <div id="admin-login-card" className="bg-white rounded-lg shadow-xl border border-slate-200 p-8 max-w-md w-full relative">
-          <button 
-            onClick={onClose}
-            className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 rounded-full transition-colors"
-          >
-            <X className="w-6 h-6" />
-          </button>
-
-          <div className="flex flex-col items-center mb-6">
-            <div className="w-16 h-16 bg-[#003667]/10 rounded-full flex items-center justify-center mb-4">
-              <Lock className="w-8 h-8 text-[#003667]" />
-            </div>
-            <h2 className="font-display font-bold text-2xl text-[#003667] text-center">Admin Security Portal</h2>
-            <p className="font-sans text-xs text-slate-500 text-center mt-1">Authorized access points for Power Veg Exim administrative workflows.</p>
-          </div>
-
-          {loginError && (
-            <div className="bg-red-50 text-red-700 text-xs px-4 py-3 rounded border border-red-200 mb-6 font-medium">
-              {loginError}
-            </div>
-          )}
-
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-600 mb-1">EMAIL ADDRESS</label>
-              <input 
-                type="email" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@powerveg.com"
-                required
-                className="w-full text-sm border border-slate-200 rounded px-3 py-2 focus:ring-2 focus:ring-[#00639C] focus:outline-none bg-slate-50 font-sans"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-600 mb-1">SECURITY PASSWORD</label>
-              <input 
-                type="password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                required
-                className="w-full text-sm border border-slate-200 rounded px-3 py-2 focus:ring-2 focus:ring-[#00639C] focus:outline-none bg-slate-50 font-sans"
-              />
-            </div>
-
-            <button 
-              type="submit"
-              disabled={isLoggingIn}
-              className="w-full bg-[#003667] text-white text-sm py-2.5 rounded font-bold uppercase tracking-wider hover:bg-[#00639C] transition-all cursor-pointer flex items-center justify-center gap-2"
-            >
-              {isLoggingIn ? "Authorizing..." : "Log In Console"}
-              <Lock className="w-4 h-4" />
-            </button>
-          </form>
-
-          {/* Seed helper badge */}
-          <div className="bg-slate-50 border border-slate-200 rounded p-4 mt-6 text-[11px] font-sans text-slate-500 text-center space-y-1">
-            <p className="font-bold text-[#7F3700] uppercase tracking-wider">Demo / Testing Credentials</p>
-            <p>Admin Email: <span className="font-mono text-slate-800 font-bold bg-[#7F3700]/10 px-1 py-0.5 rounded">admin@powerveg.com</span></p>
-            <p>Password: <span className="font-mono text-slate-800 font-bold bg-[#7F3700]/10 px-1 py-0.5 rounded">admin</span></p>
-            <p className="text-[10px] text-slate-400 mt-2">Log in here to test full CRUD and settings modifications instantly without coding!</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   // authenticated layout
   return (

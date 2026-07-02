@@ -1,0 +1,4 @@
+public/mobp/*.png filter=lfs diff=lfs merge=lfs -text
+public/webp/*.png filter=lfs diff=lfs merge=lfs -text
+mobp/*.png filter=lfs diff=lfs merge=lfs -text
+webp/*.png filter=lfs diff=lfs merge=lfs -text

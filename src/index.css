@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Montserrat", sans-serif;
+  --font-brand: "Oswald", sans-serif;   /* Bold condensed — for logo & headings */
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Premium Dark Theme Color System - Power Veg Exim */
+  --color-primary: #003F7F; /* Deep Navy Blue */
+  --color-secondary: #0E8ACF; /* Ocean Blue */
+  --color-accent: #FF7A1A; /* Export Orange */
+  --color-accent-light: #ff9d54;
+  --color-surface-bg: #FFFFFF; /* Light Background */
+  --color-dark-card: #f8fafc;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF7A1A;
+}
+
+/* Custom globally accessible keyframe animations & scroll helper classes */
+.blur-backdrop {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 12px rgba(168, 85, 247, 0);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s infinite;
+}
+
+@keyframes heartbeat-glow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  10% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  30% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+.animate-heartbeat {
+  animation: heartbeat-glow 2.5s ease-in-out infinite;
+}
+
+
+/* Scroll Snap/Reveal styles */
+html {
+  scroll-behavior: smooth;
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #0f172a;
+  overflow-x: hidden;
+}
+
+/* ── Mobile Nav Drawer ──────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Safe-area padding for notched phones */
+  .mobile-drawer-safe {
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
+  }
+
+  /* Hide scrollbar inside drawer on mobile */
+  .mobile-drawer-scroll::-webkit-scrollbar {
+    display: none;
+  }
+  .mobile-drawer-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Touch-action for the backdrop */
+  .mobile-drawer-backdrop {
+    touch-action: none;
+  }
+
+  /* Prevent text selection when swiping drawer */
+  .mobile-nav-drawer {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Language item active state for touch */
+  .mobile-lang-item:active {
+    background-color: rgba(0, 63, 127, 0.06);
+  }
+
+  /* Nav link item touch feedback */
+  .mobile-nav-link:active {
+    background-color: rgba(0, 63, 127, 0.08) !important;
+    transform: scale(0.98);
+  }
+
+  /* Quote CTA button press effect */
+  .mobile-cta-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 4px 12px rgba(255, 122, 26, 0.25) !important;
+  }
+}

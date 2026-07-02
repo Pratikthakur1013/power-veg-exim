@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+# Local file-based database (replaced by Firestore on Vercel)
+data/uploads/
+data/db.json

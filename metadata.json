@@ -1,0 +1,6 @@
+{
+  "name": "Power Veg Exim",
+  "description": "Premium Nashik Onions B2B agricultural export business web application, connecting Nashik farms to global markets with an active admin dashboard, inventory management, buyer inquiries, and secure authentication.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.cjs",
     "lint": "tsc --noEmit",
-    "setup:admin": "tsx src/utils/adminSetup.ts"
+    "setup:admin": "tsx src/utils/adminSetup.ts",
+    "setup:admin:firestore": "tsx scripts/setupAdminFirestore.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

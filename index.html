@@ -1,6 +1,288 @@
 <!doctype html>
 <html lang="en" class="scroll-smooth">
   <head>
+    <script>
+      (function() {
+        if (window.location.protocol === 'file:') {
+          var targetUrl = 'http://localhost:3000';
+          var redirectTriggered = false;
+          
+          var checkServer = function() {
+            var img = new Image();
+            img.onload = function() {
+              if (!redirectTriggered) {
+                redirectTriggered = true;
+                window.location.href = targetUrl;
+              }
+            };
+            img.onerror = function() {
+              if (!redirectTriggered) {
+                renderDashboard();
+              }
+            };
+            img.src = targetUrl + '/favicon.ico?t=' + Date.now();
+            
+            // Timeout to render dashboard if server is slow or offline
+            setTimeout(function() {
+              if (!redirectTriggered) {
+                renderDashboard();
+              }
+            }, 300);
+          };
+          
+          var renderDashboard = function() {
+            document.write('<!DOCTYPE html>' +
+'<html lang="en">' +
+'<head>' +
+'  <meta charset="UTF-8">' +
+'  <title>Power Veg Exim Launcher</title>' +
+'  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">' +
+'  <style>' +
+'    :root {' +
+'      --bg: #070d1a;' +
+'      --panel: rgba(255, 255, 255, 0.03);' +
+'      --border: rgba(255, 255, 255, 0.08);' +
+'      --primary: #FF7A1A;' +
+'      --primary-hover: #E06915;' +
+'      --text: #e5e7eb;' +
+'      --text-muted: #9ca3af;' +
+'      --success: #10B981;' +
+'      --error: #EF4444;' +
+'    }' +
+'    * { box-sizing: border-box; margin: 0; padding: 0; }' +
+'    body {' +
+'      background-color: var(--bg);' +
+'      color: var(--text);' +
+'      font-family: \\\'Inter\\\', sans-serif;' +
+'      min-height: 100vh;' +
+'      display: flex;' +
+'      align-items: center;' +
+'      justify-content: center;' +
+'      padding: 24px;' +
+'      overflow-x: hidden;' +
+'    }' +
+'    .glow-1 {' +
+'      position: absolute; width: 400px; height: 400px;' +
+'      background: radial-gradient(circle, rgba(255, 122, 26, 0.08) 0%, transparent 70%);' +
+'      top: 10%; left: 10%; z-index: 1; pointer-events: none;' +
+'    }' +
+'    .glow-2 {' +
+'      position: absolute; width: 500px; height: 500px;' +
+'      background: radial-gradient(circle, rgba(0, 54, 103, 0.15) 0%, transparent 70%);' +
+'      bottom: 10%; right: 10%; z-index: 1; pointer-events: none;' +
+'    }' +
+'    .container {' +
+'      max-width: 500px;' +
+'      width: 100%;' +
+'      background: var(--panel);' +
+'      backdrop-filter: blur(20px);' +
+'      -webkit-backdrop-filter: blur(20px);' +
+'      border: 1px solid var(--border);' +
+'      border-radius: 20px;' +
+'      padding: 32px;' +
+'      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);' +
+'      z-index: 10;' +
+'      position: relative;' +
+'      animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;' +
+'    }' +
+'    @keyframes fadeIn {' +
+'      from { opacity: 0; transform: translateY(20px); }' +
+'      to { opacity: 1; transform: translateY(0); }' +
+'    }' +
+'    .header {' +
+'      text-align: center;' +
+'      margin-bottom: 24px;' +
+'    }' +
+'    .logo-icon {' +
+'      width: 56px;' +
+'      height: 56px;' +
+'      margin-bottom: 12px;' +
+'      background: rgba(255, 255, 255, 0.05);' +
+'      border: 1px solid var(--border);' +
+'      border-radius: 14px;' +
+'      display: inline-flex;' +
+'      align-items: center;' +
+'      justify-content: center;' +
+'    }' +
+'    .title {' +
+'      font-family: \\\'Montserrat\\\', sans-serif;' +
+'      font-weight: 800;' +
+'      font-size: 1.6rem;' +
+'      letter-spacing: -0.02em;' +
+'      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);' +
+'      -webkit-background-clip: text;' +
+'      -webkit-text-fill-color: transparent;' +
+'      margin-bottom: 4px;' +
+'    }' +
+'    .subtitle {' +
+'      font-size: 0.85rem;' +
+'      color: var(--text-muted);' +
+'    }' +
+'    .status-panel {' +
+'      display: flex;' +
+'      align-items: center;' +
+'      gap: 10px;' +
+'      background: rgba(255, 255, 255, 0.02);' +
+'      border: 1px solid var(--border);' +
+'      border-radius: 10px;' +
+'      padding: 10px 14px;' +
+'      margin-bottom: 20px;' +
+'    }' +
+'    .status-indicator {' +
+'      width: 8px;' +
+'      height: 8px;' +
+'      border-radius: 50%;' +
+'      background-color: var(--error);' +
+'      box-shadow: 0 0 10px var(--error);' +
+'      animation: pulse 2s infinite;' +
+'    }' +
+'    @keyframes pulse {' +
+'      0% { transform: scale(0.95); opacity: 0.5; }' +
+'      50% { transform: scale(1.05); opacity: 1; }' +
+'      100% { transform: scale(0.95); opacity: 0.5; }' +
+'    }' +
+'    .status-text {' +
+'      font-size: 0.8rem;' +
+'      font-weight: 500;' +
+'      color: var(--error);' +
+'    }' +
+'    .actions {' +
+'      display: flex;' +
+'      flex-direction: column;' +
+'      gap: 12px;' +
+'      margin-bottom: 24px;' +
+'    }' +
+'    .btn {' +
+'      display: flex;' +
+'      align-items: center;' +
+'      justify-content: space-between;' +
+'      width: 100%;' +
+'      padding: 14px 18px;' +
+'      border-radius: 10px;' +
+'      text-decoration: none;' +
+'      font-weight: 600;' +
+'      font-size: 0.9rem;' +
+'      transition: all 0.2s ease;' +
+'      border: 1px solid var(--border);' +
+'    }' +
+'    .btn-primary {' +
+'      background: var(--primary);' +
+'      color: #ffffff;' +
+'      border-color: transparent;' +
+'      box-shadow: 0 4px 16px rgba(255, 122, 26, 0.2);' +
+'    }' +
+'    .btn-primary:hover {' +
+'      background: var(--primary-hover);' +
+'      transform: translateY(-1px);' +
+'      box-shadow: 0 6px 20px rgba(255, 122, 26, 0.3);' +
+'    }' +
+'    .btn-secondary {' +
+'      background: rgba(255, 255, 255, 0.03);' +
+'      color: var(--text);' +
+'    }' +
+'    .btn-secondary:hover {' +
+'      background: rgba(255, 255, 255, 0.08);' +
+'      border-color: rgba(255, 255, 255, 0.2);' +
+'      transform: translateY(-1px);' +
+'    }' +
+'    .btn-arrow {' +
+'      font-size: 1rem;' +
+'      transition: transform 0.2s ease;' +
+'    }' +
+'    .btn:hover .btn-arrow {' +
+'      transform: translateX(3px);' +
+'    }' +
+'    .instructions {' +
+'      background: rgba(255, 255, 255, 0.01);' +
+'      border-top: 1px solid var(--border);' +
+'      padding-top: 20px;' +
+'    }' +
+'    .instructions-title {' +
+'      font-size: 0.8rem;' +
+'      font-weight: 700;' +
+'      text-transform: uppercase;' +
+'      letter-spacing: 0.05em;' +
+'      color: var(--text-muted);' +
+'      margin-bottom: 8px;' +
+'    }' +
+'    .code-box {' +
+'      background: #030712;' +
+'      border: 1px solid var(--border);' +
+'      border-radius: 6px;' +
+'      padding: 10px 14px;' +
+'      font-family: \\\'JetBrains Mono\\\', monospace;' +
+'      font-size: 0.8rem;' +
+'      line-height: 1.5;' +
+'      color: #38bdf8;' +
+'      overflow-x: auto;' +
+'    }' +
+'    .code-comment {' +
+'      color: #6b7280;' +
+'    }' +
+'  </style>' +
+'</head>' +
+'<body>' +
+'  <div class="glow-1"></div>' +
+'  <div class="glow-2"></div>' +
+'  <div class="container">' +
+'    <div class="header">' +
+'      <div class="logo-icon">' +
+'        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="36" height="36">' +
+'          <circle cx="50" cy="50" r="48" fill="#003667"/>' +
+'          <path d="M30,70 Q50,45 70,70" fill="none" stroke="#ffffff" stroke-width="3"/>' +
+'          <circle cx="50" cy="38" r="14" fill="#7F3700"/>' +
+'        </svg>' +
+'      </div>' +
+'      <div class="title">POWER VEG EXIM</div>' +
+'      <div class="subtitle">Local Website & Platform Manager</div>' +
+'    </div>' +
+'    <div class="status-panel">' +
+'      <div class="status-indicator" id="ind"></div>' +
+'      <div class="status-text" id="status-txt">Local Server: Offline (npm run dev is not running)</div>' +
+'    </div>' +
+'    <div class="actions">' +
+'      <a href="http://localhost:3000" id="btn-local" class="btn btn-secondary">' +
+'        <span>Launch Local App</span>' +
+'        <span class="btn-arrow">→</span>' +
+'      </a>' +
+'      <a href="https://powervegexim.com" class="btn btn-primary" target="_blank">' +
+'        <span>Launch Live Platform</span>' +
+'        <span class="btn-arrow">→</span>' +
+'      </a>' +
+'    </div>' +
+'    <div class="instructions">' +
+'      <div class="instructions-title">How to start the local server</div>' +
+'      <div class="code-box">' +
+'        <span class="code-comment"># 1. Open terminal in this folder</span><br>' +
+'        <span class="code-comment"># 2. Run dev server:</span><br>' +
+'        npm run dev' +
+'      </div>' +
+'    </div>' +
+'  </div>' +
+'  <script>' +
+'    var target = \\\'http://localhost:3000\\\';' +
+'    var testServer = function() {' +
+'      var img = new Image();' +
+'      img.onload = function() {' +
+'        document.getElementById(\\\'ind\\\').style.backgroundColor = \\\'#10B981\\\';' +
+'        document.getElementById(\\\'ind\\\').style.boxShadow = \\\'0 0 10px #10B981\\\';' +
+'        document.getElementById(\\\'status-txt\\\').innerText = \\\'Local Server: Online (connected on port 3000)\\\';' +
+'        document.getElementById(\\\'status-txt\\\').style.color = \\\'#10B981\\\';' +
+'        document.getElementById(\\\'btn-local\\\').className = \\\'btn btn-secondary btn-primary\\\';' +
+'      };' +
+'      img.src = target + \\\'/favicon.ico?t=\\\' + Date.now();' +
+'    };' +
+'    testServer();' +
+'  </scr' + 'ipt>' +
+'</body>' +
+'</html>');
+            document.close();
+          };
+          
+          checkServer();
+        }
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -66,7 +348,7 @@
     <!-- ═══════════════════════════════════════════════
          GOOGLE TRANSLATE — suppress default top bar
          but keep the translation engine active
-    ════════════════════════════════════════════════ -->
+     ════════════════════════════════════════════════ -->
     <style>
       /* Hide Google's injected toolbar entirely */
       body { top: 0 !important; }
@@ -132,11 +414,8 @@
         padding: 8px 12px;
       }
     </style>
-
-
   </head>
   <body class="bg-[#0B1020] text-white font-sans antialiased">
-
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

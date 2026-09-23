@@ -1,20 +1,17 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useScroll } from "motion/react";
-import { Settings } from "lucide-react";
-import Navbar from "./components/Navbar";
-import ScrollyCanvas from "./components/ScrollyCanvas";
-import Overlay from "./components/Overlay";
-import Products from "./components/Products";
-import AboutUs from "./components/AboutUs";
-import Markets from "./components/Markets";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
+
+import Navbar from "../layouts/Navbar";
+import ScrollyCanvas from "../components/ScrollyCanvas";
+import Overlay from "../layouts/Overlay";
+import Products from "../components/Products";
+import AboutUs from "../components/AboutUs";
+import Markets from "../components/Markets";
+import Contact from "../components/Contact";
+import Footer from "../layouts/Footer";
 
 export default function App() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [showAdminConsole, setShowAdminConsole] = useState(false);
-  const [data, setData] = useState<any>(null);
-
   useEffect(() => {
     // Listen for the hidden admin trigger from Navbar logo
     const handleOpenAdmin = () => {
@@ -29,13 +26,10 @@ export default function App() {
       try {
         const res = await fetch("/api/public/data");
         if (res.ok) {
-          const resData = await res.json();
-          setData(resData);
-        } else {
-          setData({ products: [], gallery: [], certifications: [], countries: [], company_profile: {}, website_settings: {} });
+          await res.json();
         }
       } catch (err) {
-        setData({ products: [], gallery: [], certifications: [], countries: [], company_profile: {}, website_settings: {} });
+        // Suppress errors silently for public data
       }
     }
     loadData();

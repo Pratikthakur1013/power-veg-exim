@@ -74,9 +74,8 @@ export default function Navbar() {
         const found = languages.find(l => l.code === code);
         if (found) setLanguage(found.label);
       }
-    } catch (_) {}
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    } catch (err) {}
+    }, []);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 30);

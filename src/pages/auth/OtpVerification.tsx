@@ -173,8 +173,7 @@ export default function OtpVerification() {
     if (resetToken) {
       sendOtp();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      }, []);
 
   // ─── OTP Input Handlers ─────────────────────────────────────────────────
 

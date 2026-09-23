@@ -5,7 +5,7 @@
  */
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { AuthSession } from "../types/auth.js";
+import { AuthSession } from "../../types/auth.js";
 
 /** Read JWT_SECRET at call time (lazy) so .env is always loaded first */
 function getJwtSecret(): string {

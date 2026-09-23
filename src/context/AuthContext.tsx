@@ -49,7 +49,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (inactivityTimer.current) clearTimeout(inactivityTimer.current);
 
     inactivityTimer.current = setTimeout(async () => {
-      console.log("[AuthContext] Inactivity timeout — logging out");
       await performLogout();
       // Redirect to login with expired message
       window.location.href = "/admin/login?reason=inactivity";

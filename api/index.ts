@@ -19,13 +19,13 @@ import express from 'express';
 import multer from 'multer';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'; // Keep this if needed elsewhere, otherwise remove entirely
 
-import { globalRateLimiter } from '../src/server/rateLimiter.js';
-import { requireAuth } from '../src/server/authMiddleware.js';
-import authRoutesFactory from '../src/server/routes/authRoutesFirestore.js';
-import { firestoreDb } from '../src/server/firestoreDb.js';
-import { uploadToFirebaseStorage } from '../src/server/firebaseStorage.js';
+import { globalRateLimiter } from '../src/services/api/rateLimiter.js';
+import { requireAuth } from '../src/services/api/authMiddleware.js';
+import authRoutesFactory from '../src/services/api/authRoutesFirestore.js';
+import { firestoreDb } from '../src/services/api/firestoreDb.js';
+import { uploadToFirebaseStorage } from '../src/services/api/firebaseStorage.js';
 
 const app = express();
 

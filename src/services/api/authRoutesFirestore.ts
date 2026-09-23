@@ -18,15 +18,15 @@ import bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
 import { UAParser } from 'ua-parser-js';
 
-import { requireAuth, issueSession, clearSession } from '../authMiddleware.js';
-import { loginRateLimiter, otpRequestRateLimiter, authRateLimiter } from '../rateLimiter.js';
-import { verifyFirebaseIdToken } from '../firebaseAdmin.js';
+import { requireAuth, issueSession, clearSession } from './authMiddleware.js';
+import { loginRateLimiter, otpRequestRateLimiter, authRateLimiter } from './rateLimiter.js';
+import { verifyFirebaseIdToken } from './firebaseAdmin.js';
 import {
   sendLoginNotification,
   sendPasswordChangedNotification,
   sendPasswordResetInitiated,
   sendFailedAttemptsNotification,
-} from '../emailService.js';
+} from './emailService.js';
 import {
   loginApiSchema,
   forgotPasswordApiSchema,
@@ -35,7 +35,7 @@ import {
   sendOtpApiSchema,
 } from '../../lib/validators.js';
 import type { AdminRecord, LoginLog, ResetSession, LoginEventType } from '../../types/auth.js';
-import { firestoreDb } from '../firestoreDb.js';
+import { firestoreDb } from './firestoreDb.js';
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 

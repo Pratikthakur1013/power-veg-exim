@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import toast, { Toaster } from "react-hot-toast";
 import { Lock, Eye, EyeOff, ArrowLeft, Loader2, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { resetPasswordSchema, type ResetPasswordSchema } from "../../lib/validators";
-import PasswordStrength from "./PasswordStrength";
+import PasswordStrength from "../../components/auth/PasswordStrength";
 
 /**
  * ResetPassword — Step 3 of the password reset flow.

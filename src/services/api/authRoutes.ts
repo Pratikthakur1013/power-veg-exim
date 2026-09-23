@@ -19,15 +19,15 @@ import { UAParser } from "ua-parser-js";
 import path from "path";
 import fs from "fs";
 
-import { requireAuth, issueSession, clearSession } from "../authMiddleware.js";
-import { loginRateLimiter, otpRequestRateLimiter, authRateLimiter } from "../rateLimiter.js";
-import { verifyFirebaseIdToken } from "../firebaseAdmin.js";
+import { requireAuth, issueSession, clearSession } from "./authMiddleware.js";
+import { loginRateLimiter, otpRequestRateLimiter, authRateLimiter } from "./rateLimiter.js";
+import { verifyFirebaseIdToken } from "./firebaseAdmin.js";
 import {
   sendLoginNotification,
   sendPasswordChangedNotification,
   sendPasswordResetInitiated,
   sendFailedAttemptsNotification,
-} from "../emailService.js";
+} from "./emailService.js";
 import {
   loginApiSchema,
   forgotPasswordApiSchema,

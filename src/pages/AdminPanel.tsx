@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  LayoutDashboard, ShoppingBag, Image as ImageIcon, Award, Globe,
-  Settings, Mail, LogOut, Plus, Trash2, Edit3, Download, Search, Check,
+import { 
+  LayoutDashboard, ShoppingBag, Image as ImageIcon, Award, Globe, 
+  Settings, Mail, LogOut, Plus, Trash2, Edit3, Download, Search, Check, 
   FileText, Upload, RefreshCw, X, ArrowLeft
 } from "lucide-react";
 import { Product, GalleryItem, Certification, CountryCard, Inquiry, WebsiteSettings, CompanyProfile } from "../types";
@@ -422,7 +422,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
     }
 
     const headers = ["ID", "Buyer Name", "Company/Firm", "Email Address", "Phone Number", "Country Location", "Required Qty (MT)", "Specifications Message", "Submission Date"];
-
+    
     const rows = inquiries.map(inq => {
       // Escape commas & quotes
       const clean = (val: string) => `"${(val || "").replace(/"/g, '""')}"`;
@@ -442,7 +442,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
     const csvContent = [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
-
+    
     const link = document.createElement("a");
     link.setAttribute("href", url);
     link.setAttribute("download", `PowerVegExim_Buyer_Inquiries_${new Date().toISOString().split('T')[0]}.csv`);
@@ -467,13 +467,14 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
   // authenticated layout
   return (
     <div className="fixed inset-0 z-50 bg-slate-100 flex flex-col md:flex-row overflow-hidden font-sans">
-
+      
       {/* Toast Notification */}
       {toastMessage && (
-        <div className={`fixed bottom-6 right-6 z-50 px-6 py-3 rounded-lg shadow-lg border text-sm font-semibold flex items-center gap-3 transition-transform animate-bounce ${toastMessage.type === "success"
-            ? "bg-emerald-50 border-emerald-300 text-emerald-800"
+        <div className={`fixed bottom-6 right-6 z-50 px-6 py-3 rounded-lg shadow-lg border text-sm font-semibold flex items-center gap-3 transition-transform animate-bounce ${
+          toastMessage.type === "success" 
+            ? "bg-emerald-50 border-emerald-300 text-emerald-800" 
             : "bg-red-50 border-red-300 text-red-800"
-          }`}>
+        }`}>
           <Check className="w-5 h-5 rounded-full bg-emerald-500 text-white p-0.5" />
           {toastMessage.text}
         </div>
@@ -486,7 +487,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
             <h1 className="font-display font-extrabold text-[#FF8A3D] text-lg">Power Veg Exim</h1>
             <p className="text-[10px] text-slate-300 tracking-wider">Control Panel console</p>
           </div>
-          <button
+          <button 
             onClick={onClose}
             className="md:hidden text-slate-300 hover:text-white p-1"
           >
@@ -495,7 +496,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
         </div>
 
         <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto">
-          <button
+          <button 
             onClick={() => setActiveTab("dashboard")}
             className={`w-full text-left px-3 py-2 rounded text-sm font-medium flex items-center gap-3 ${activeTab === "dashboard" ? "bg-[#003667] text-white" : "text-slate-300 hover:bg-[#003667]/40"}`}
           >
@@ -503,7 +504,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
             Dashboard
           </button>
 
-          <button
+          <button 
             onClick={() => { setActiveTab("products"); setEditingProduct(null); }}
             className={`w-full text-left px-3 py-2 rounded text-sm font-medium flex items-center gap-3 ${activeTab === "products" ? "bg-[#003667] text-white" : "text-slate-300 hover:bg-[#003667]/40"}`}
           >
@@ -511,7 +512,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
             Export Products
           </button>
 
-          <button
+          <button 
             onClick={() => setActiveTab("gallery")}
             className={`w-full text-left px-3 py-2 rounded text-sm font-medium flex items-center gap-3 ${activeTab === "gallery" ? "bg-[#003667] text-white" : "text-slate-300 hover:bg-[#003667]/40"}`}
           >
@@ -519,7 +520,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
             Stock Gallery
           </button>
 
-          <button
+          <button 
             onClick={() => { setActiveTab("certifications"); setEditingCert(null); }}
             className={`w-full text-left px-3 py-2 rounded text-sm font-medium flex items-center gap-3 ${activeTab === "certifications" ? "bg-[#003667] text-white" : "text-slate-300 hover:bg-[#003667]/40"}`}
           >
@@ -527,7 +528,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
             Certifications
           </button>
 
-          <button
+          <button 
             onClick={() => { setActiveTab("countries"); setEditingCountry(null); }}
             className={`w-full text-left px-3 py-2 rounded text-sm font-medium flex items-center gap-3 ${activeTab === "countries" ? "bg-[#003667] text-white" : "text-slate-300 hover:bg-[#003667]/40"}`}
           >
@@ -535,7 +536,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
             Global Markets
           </button>
 
-          <button
+          <button 
             onClick={() => setActiveTab("inquiries")}
             className={`w-full text-left px-3 py-2 rounded text-sm font-medium flex items-center justify-between ${activeTab === "inquiries" ? "bg-[#003667] text-white" : "text-slate-300 hover:bg-[#003667]/40"}`}
           >
@@ -550,7 +551,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
             )}
           </button>
 
-          <button
+          <button 
             onClick={() => setActiveTab("settings")}
             className={`w-full text-left px-3 py-2 rounded text-sm font-medium flex items-center gap-3 ${activeTab === "settings" ? "bg-[#003667] text-white" : "text-slate-300 hover:bg-[#003667]/40"}`}
           >
@@ -560,7 +561,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
         </nav>
 
         <div className="p-4 border-t border-[#003667] space-y-3">
-          <button
+          <button 
             onClick={onClose}
             className="w-full bg-[#00639C] hover:bg-[#003667] text-white text-xs font-bold uppercase tracking-wider py-2 rounded flex items-center justify-center gap-2 cursor-pointer"
           >
@@ -568,7 +569,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
             Go to Website
           </button>
 
-          <button
+          <button 
             onClick={handleLogout}
             className="w-full text-left px-3 py-2 bg-slate-900 border border-slate-800 rounded text-xs font-semibold text-rose-300 hover:text-white flex items-center justify-center gap-2 cursor-pointer"
           >
@@ -580,7 +581,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
 
       {/* Main Console window area */}
       <div className="flex-1 flex flex-col overflow-hidden bg-slate-50">
-
+        
         {/* Main top header */}
         <header className="bg-white border-b border-slate-200 h-16 shrink-0 flex items-center justify-between px-6 md:px-8">
           <div className="flex items-center gap-3">
@@ -594,7 +595,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
               {activeTab === "settings" && "Custom Branding & Variables"}
             </h2>
           </div>
-          <button
+          <button 
             onClick={onClose}
             className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-md text-xs font-bold flex items-center gap-2 cursor-pointer"
           >
@@ -605,11 +606,11 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
 
         {/* Dynamic Inner Tab body */}
         <main className="flex-1 overflow-y-auto p-6 md:p-8">
-
+          
           {/* TAB: DASHBOARD OVERVIEW */}
           {activeTab === "dashboard" && (
             <div className="space-y-6">
-
+              
               {/* Top KPI Cards row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200 flex items-center gap-4">
@@ -655,7 +656,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
 
               {/* Quick Profile / Logo Uploaders card */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
+                
                 {/* PDF & LOGO replaces */}
                 <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 space-y-6">
                   <div className="border-b border-slate-100 pb-3">
@@ -678,11 +679,11 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                       <label className="bg-[#003667] hover:bg-[#00639C] text-white text-xs font-bold px-4 py-2 rounded cursor-pointer transition-colors shrink-0 flex items-center gap-1.5 shadow-sm">
                         <Upload className="w-3.5 h-3.5" />
                         Replace Logo
-                        <input
-                          type="file"
-                          accept="image/*"
+                        <input 
+                          type="file" 
+                          accept="image/*" 
                           onChange={handleLogoUpload}
-                          className="hidden"
+                          className="hidden" 
                         />
                       </label>
                     </div>
@@ -699,11 +700,11 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                       <label className="bg-[#7F3700] hover:bg-amber-800 text-white text-xs font-bold px-4 py-2 rounded cursor-pointer transition-colors shrink-0 flex items-center gap-1.5 shadow-sm">
                         <FileText className="w-3.5 h-3.5" />
                         Replace PDF
-                        <input
-                          type="file"
-                          accept="application/pdf"
+                        <input 
+                          type="file" 
+                          accept="application/pdf" 
                           onChange={handlePdfUpload}
-                          className="hidden"
+                          className="hidden" 
                         />
                       </label>
                     </div>
@@ -717,7 +718,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                       <h3 className="font-display font-extrabold text-[#003667] text-md uppercase">Latest Trade Inquiry</h3>
                       <p className="text-xs text-slate-500">Most recent logistics / pricing message from international importer.</p>
                     </div>
-                    <button
+                    <button 
                       onClick={() => setActiveTab("inquiries")}
                       className="text-[#00639C] hover:underline text-xs font-bold"
                     >
@@ -758,67 +759,67 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
           {/* TAB: PRODUCTS CRUD */}
           {activeTab === "products" && (
             <div className="space-y-8">
-
+              
               {/* Product creator card */}
               {!editingProduct && (
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
                   <h3 className="font-display font-extrabold text-[#003667] text-md uppercase tracking-wide mb-4">Add New Export Onion Grade</h3>
-
+                  
                   <form onSubmit={handleCreateProduct} className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <div>
                       <label className="text-xs font-bold text-slate-500">PRODUCT NAME</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={newProduct.name}
                         onChange={e => setNewProduct({ ...newProduct, name: e.target.value })}
-                        placeholder="e.g., Premium Export Grade Onion"
+                        placeholder="e.g., Premium Export Grade Onion" 
                         className="w-full text-xs border border-slate-200 bg-slate-50 p-2.5 rounded focus:ring-1 focus:ring-[#00639C]"
                       />
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-500">SIZE DIAMETER RANGE</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={newProduct.sizeRange}
                         onChange={e => setNewProduct({ ...newProduct, sizeRange: e.target.value })}
-                        placeholder="e.g., 55mm - 80mm"
+                        placeholder="e.g., 55mm - 80mm" 
                         className="w-full text-xs border border-slate-200 bg-slate-50 p-2.5 rounded focus:ring-1 focus:ring-[#00639C]"
                       />
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-500">PACKAGING TYPES</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={newProduct.packaging}
                         onChange={e => setNewProduct({ ...newProduct, packaging: e.target.value })}
-                        placeholder="e.g., 20kg & 40kg Mesh Bags"
+                        placeholder="e.g., 20kg & 40kg Mesh Bags" 
                         className="w-full text-xs border border-slate-200 bg-slate-50 p-2.5 rounded focus:ring-1 focus:ring-[#00639C]"
                       />
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-500">EXPECTED SHELF LIFE</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={newProduct.shelfLife}
                         onChange={e => setNewProduct({ ...newProduct, shelfLife: e.target.value })}
-                        placeholder="e.g., Up to 6 Months"
+                        placeholder="e.g., Up to 6 Months" 
                         className="w-full text-xs border border-slate-200 bg-slate-50 p-2.5 rounded focus:ring-1 focus:ring-[#00639C]"
                       />
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-500">AVAILABILITY PEAK SEASONS</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={newProduct.availability}
                         onChange={e => setNewProduct({ ...newProduct, availability: e.target.value })}
-                        placeholder="e.g., Year-Round"
+                        placeholder="e.g., Year-Round" 
                         className="w-full text-xs border border-slate-200 bg-slate-50 p-2.5 rounded focus:ring-1 focus:ring-[#00639C]"
                       />
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-500">PRODUCT DISPLAY IMAGE</label>
-                      <input
-                        type="file"
+                      <input 
+                        type="file" 
                         accept="image/*"
                         onChange={e => e.target.files && setProductFile(e.target.files[0])}
                         className="w-full text-xs border border-dashed border-slate-200 bg-slate-50 p-1.5 rounded focus:ring-1 focus:ring-[#00639C]"
@@ -826,7 +827,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                     </div>
                     <div className="md:col-span-3">
                       <label className="text-xs font-bold text-slate-500 font-display">GRADE DESCRIPTION / SOURCING CHARACTERISTICS</label>
-                      <textarea
+                      <textarea 
                         rows={2}
                         value={newProduct.description}
                         onChange={e => setNewProduct({ ...newProduct, description: e.target.value })}
@@ -835,7 +836,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                       />
                     </div>
                     <div className="md:col-span-3 flex justify-end">
-                      <button
+                      <button 
                         type="submit"
                         className="bg-[#003667] text-white text-xs font-bold px-6 py-2.5 rounded uppercase tracking-wider hover:bg-[#00639C] flex items-center gap-2 shadow cursor-pointer"
                       >
@@ -852,19 +853,19 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                 <div className="bg-amber-50 p-6 rounded-lg shadow-sm border border-amber-200">
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="font-display font-extrabold text-[#7F3700] text-md uppercase tracking-wide">Edit Onion Grade: {editingProduct.name}</h3>
-                    <button
+                    <button 
                       onClick={() => setEditingProduct(null)}
                       className="p-1 hover:bg-amber-100 rounded text-slate-500"
                     >
                       <X className="w-5 h-5" />
                     </button>
                   </div>
-
+                  
                   <form onSubmit={handleUpdateProduct} className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <div>
                       <label className="text-xs font-bold text-slate-600">PRODUCT NAME</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={editingProduct.name || ""}
                         onChange={e => setEditingProduct({ ...editingProduct, name: e.target.value })}
                         className="w-full text-xs border border-amber-200 bg-white p-2.5 rounded"
@@ -872,8 +873,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-600">SIZE DIAMETER RANGE</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={editingProduct.sizeRange || ""}
                         onChange={e => setEditingProduct({ ...editingProduct, sizeRange: e.target.value })}
                         className="w-full text-xs border border-amber-200 bg-white p-2.5 rounded"
@@ -881,8 +882,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-600">PACKAGING TYPES</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={editingProduct.packaging || ""}
                         onChange={e => setEditingProduct({ ...editingProduct, packaging: e.target.value })}
                         className="w-full text-xs border border-amber-200 bg-white p-2.5 rounded"
@@ -890,8 +891,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-600">EXPECTED SHELF LIFE</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={editingProduct.shelfLife || ""}
                         onChange={e => setEditingProduct({ ...editingProduct, shelfLife: e.target.value })}
                         className="w-full text-xs border border-amber-200 bg-white p-2.5 rounded"
@@ -899,8 +900,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-600">AVAILABILITY PEAK SEASONS</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={editingProduct.availability || ""}
                         onChange={e => setEditingProduct({ ...editingProduct, availability: e.target.value })}
                         className="w-full text-xs border border-amber-200 bg-white p-2.5 rounded"
@@ -908,8 +909,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-600">REPLACE DISPLAY IMAGE (OPTIONAL)</label>
-                      <input
-                        type="file"
+                      <input 
+                        type="file" 
                         accept="image/*"
                         onChange={e => e.target.files && setProductFile(e.target.files[0])}
                         className="w-full text-xs border border-dashed border-amber-200 bg-white p-1.5 rounded"
@@ -917,7 +918,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                     </div>
                     <div className="md:col-span-3">
                       <label className="text-xs font-bold text-slate-600 font-display">GRADE DESCRIPTION</label>
-                      <textarea
+                      <textarea 
                         rows={3}
                         value={editingProduct.description || ""}
                         onChange={e => setEditingProduct({ ...editingProduct, description: e.target.value })}
@@ -925,14 +926,14 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                       />
                     </div>
                     <div className="md:col-span-3 flex justify-end gap-3">
-                      <button
+                      <button 
                         type="button"
                         onClick={() => setEditingProduct(null)}
                         className="bg-slate-300 text-slate-800 text-xs font-bold px-4 py-2.5 rounded uppercase"
                       >
                         Cancel
                       </button>
-                      <button
+                      <button 
                         type="submit"
                         className="bg-[#7F3700] text-white text-xs font-bold px-6 py-2.5 rounded uppercase hover:bg-amber-900"
                       >
@@ -952,9 +953,9 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                   {publicData.products.map(prod => (
                     <div key={prod.id} className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-slate-50">
                       <div className="flex gap-4 items-center">
-                        <img
-                          src={prod.imageUrl}
-                          alt={prod.name}
+                        <img 
+                          src={prod.imageUrl} 
+                          alt={prod.name} 
                           className="w-16 h-16 object-cover rounded border border-slate-200 shadow-sm shrink-0"
                           referrerPolicy="no-referrer"
                         />
@@ -968,14 +969,14 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                         </div>
                       </div>
                       <div className="flex gap-2 shrink-0 self-end sm:self-center">
-                        <button
+                        <button 
                           onClick={() => { setEditingProduct(prod); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                           className="p-2 text-[#00639C] hover:bg-[#00639C]/10 rounded border border-[#00639C]/20 cursor-pointer"
                           title="Edit Product"
                         >
                           <Edit3 className="w-4 h-4" />
                         </button>
-                        <button
+                        <button 
                           onClick={() => handleDeleteProduct(prod.id)}
                           className="p-2 text-rose-600 hover:bg-rose-50 rounded border border-rose-200 cursor-pointer"
                           title="Delete Product"
@@ -993,25 +994,25 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
           {/* TAB: GALLERY CRUD */}
           {activeTab === "gallery" && (
             <div className="space-y-6">
-
+              
               {/* Image upload card */}
               <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
                 <h3 className="font-display font-extrabold text-[#003667] text-md uppercase mb-4">Upload Gallery Image</h3>
-
+                
                 <form onSubmit={handleCreateGallery} className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
                   <div>
                     <label className="text-xs font-bold text-slate-500">IMAGE CAPTION/TITLE (OPTIONAL)</label>
-                    <input
-                      type="text"
+                    <input 
+                      type="text" 
                       value={newGallery.title}
                       onChange={e => setNewGallery({ ...newGallery, title: e.target.value })}
-                      placeholder="e.g., Quality Onion Packing"
+                      placeholder="e.g., Quality Onion Packing" 
                       className="w-full text-xs border border-slate-200 p-2.5 rounded focus:ring-1 focus:ring-[#00639C]"
                     />
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500">IMAGE CATEGORY</label>
-                    <select
+                    <select 
                       value={newGallery.category}
                       onChange={e => setNewGallery({ ...newGallery, category: e.target.value })}
                       className="w-full text-xs border border-slate-200 p-2.5 bg-white rounded focus:ring-1 focus:ring-[#00639C]"
@@ -1023,15 +1024,15 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500">SELECT ATTACHMENT IMAGE</label>
-                    <input
-                      type="file"
+                    <input 
+                      type="file" 
                       accept="image/*"
                       onChange={e => e.target.files && setGalleryFile(e.target.files[0])}
                       className="w-full text-xs border border-slate-200 bg-slate-50 p-1.5 rounded"
                     />
                   </div>
                   <div className="sm:col-span-3 flex justify-end">
-                    <button
+                    <button 
                       type="submit"
                       className="bg-[#003667] text-white text-xs font-bold px-6 py-2 rounded flex items-center gap-2 cursor-pointer"
                     >
@@ -1045,20 +1046,20 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
               {/* Gallery elements display */}
               <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
                 <h4 className="font-bold text-slate-700 text-sm uppercase mb-4">Stock Gallery Photos ({publicData.gallery.length})</h4>
-
+                
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                   {publicData.gallery.map(item => (
                     <div key={item.id} className="group relative rounded-md overflow-hidden border border-slate-200 shadow-sm bg-slate-50 aspect-square">
-                      <img
-                        src={item.imageUrl}
-                        alt={item.title}
+                      <img 
+                        src={item.imageUrl} 
+                        alt={item.title} 
                         className="w-full h-full object-cover"
                         referrerPolicy="no-referrer"
                       />
                       <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-3 transition-opacity">
                         <p className="text-white font-bold text-xs">{item.title}</p>
                         <p className="text-[#FF8A3D] text-[10px] font-mono leading-none mt-1">{item.category}</p>
-                        <button
+                        <button 
                           onClick={() => handleDeleteGallery(item.id)}
                           className="mt-3 bg-red-600 text-white rounded p-1 w-fit hover:bg-red-700 text-[10px] font-bold flex items-center gap-1 cursor-pointer"
                         >
@@ -1076,7 +1077,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
           {/* TAB: CERTIFICATIONS */}
           {activeTab === "certifications" && (
             <div className="space-y-6">
-
+              
               {/* Creator cert card */}
               {!editingCert && (
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
@@ -1085,27 +1086,27 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="text-xs font-bold text-slate-500">CERTIFICATE TITLE / COMPLIANCE NAME</label>
-                        <input
-                          type="text"
+                        <input 
+                          type="text" 
                           value={newCert.name}
                           onChange={e => setNewCert({ ...newCert, name: e.target.value })}
-                          placeholder="e.g., FSSAI Certified Packhouse"
+                          placeholder="e.g., FSSAI Certified Packhouse" 
                           className="w-full text-xs border border-slate-200 p-2.5 rounded focus:ring-1 focus:ring-[#00639C]"
                         />
                       </div>
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-500">COMPLIANCE SPECIFICATIONS / VALUE TO BUYERS</label>
-                      <textarea
+                      <textarea 
                         rows={2}
                         value={newCert.description}
                         onChange={e => setNewCert({ ...newCert, description: e.target.value })}
-                        placeholder="State what this certification standard represents for safety or ease of clearing customs..."
+                        placeholder="State what this certification standard represents for safety or ease of clearing customs..." 
                         className="w-full text-xs border border-slate-200 p-2 rounded focus:ring-1 focus:ring-[#00639C]"
                       />
                     </div>
                     <div className="flex justify-end">
-                      <button
+                      <button 
                         type="submit"
                         className="bg-[#003667] text-white text-xs font-bold px-6 py-2 rounded cursor-pointer"
                       >
@@ -1123,8 +1124,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                   <form onSubmit={handleUpdateCert} className="space-y-4">
                     <div>
                       <label className="text-xs font-bold text-slate-600">CERTIFICATE NAME</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={editingCert.name || ""}
                         onChange={e => setEditingCert({ ...editingCert, name: e.target.value })}
                         className="w-full text-xs border border-amber-200 bg-white p-2.5 rounded"
@@ -1132,7 +1133,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-600">DESCRIPTION</label>
-                      <textarea
+                      <textarea 
                         rows={2}
                         value={editingCert.description || ""}
                         onChange={e => setEditingCert({ ...editingCert, description: e.target.value })}
@@ -1140,15 +1141,15 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                       />
                     </div>
                     <div className="flex justify-end gap-2">
-                      <button
-                        type="button"
+                      <button 
+                        type="button" 
                         onClick={() => setEditingCert(null)}
                         className="bg-slate-300 text-slate-800 text-xs px-4 py-2 rounded uppercase font-bold"
                       >
                         Cancel
                       </button>
-                      <button
-                        type="submit"
+                      <button 
+                        type="submit" 
                         className="bg-[#7F3700] text-white text-xs px-5 py-2 rounded uppercase font-bold hover:bg-amber-900"
                       >
                         Save Certificate
@@ -1171,13 +1172,13 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                         <p className="text-xs text-slate-500 mt-1 max-w-2xl">{cert.description}</p>
                       </div>
                       <div className="flex gap-2 shrink-0">
-                        <button
+                        <button 
                           onClick={() => { setEditingCert(cert); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                           className="p-1.5 text-slate-500 hover:text-[#00639C] border border-slate-200 rounded hover:bg-slate-50"
                         >
                           <Edit3 className="w-4 h-4" />
                         </button>
-                        <button
+                        <button 
                           onClick={() => handleDeleteCert(cert.id)}
                           className="p-1.5 text-rose-500 hover:text-rose-700 border border-slate-200 rounded hover:bg-rose-50"
                         >
@@ -1194,7 +1195,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
           {/* TAB: GLOBAL MARKETS COUNTRY CRUD */}
           {activeTab === "countries" && (
             <div className="space-y-6">
-
+              
               {/* Creator Country */}
               {!editingCountry && (
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
@@ -1202,36 +1203,36 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                   <form onSubmit={handleCreateCountry} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-xs font-bold text-slate-500">COUNTRY NAME</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={newCountry.name}
                         onChange={e => setNewCountry({ ...newCountry, name: e.target.value })}
-                        placeholder="e.g., Vietnam"
+                        placeholder="e.g., Vietnam" 
                         className="w-full text-xs border border-slate-200 p-2.5 rounded focus:ring-1 focus:ring-[#00639C]"
                       />
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-500">EMOJI FLAG CHARACTER</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={newCountry.flag}
                         onChange={e => setNewCountry({ ...newCountry, flag: e.target.value })}
-                        placeholder="e.g., 🇻🇳"
+                        placeholder="e.g., 🇻🇳" 
                         className="w-full text-xs border border-slate-200 p-2.5 rounded focus:ring-1 focus:ring-[#00639C]"
                       />
                     </div>
                     <div className="md:col-span-2">
                       <label className="text-xs font-bold text-slate-500">MARKET DESCRIPTION (ONION SIZES/ROUTING SPECIFICATIONS)</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={newCountry.description}
                         onChange={e => setNewCountry({ ...newCountry, description: e.target.value })}
-                        placeholder="e.g., High-volume buyer of fresh 40-50mm onions shipped directly via dry ventilated sea cargo."
+                        placeholder="e.g., High-volume buyer of fresh 40-50mm onions shipped directly via dry ventilated sea cargo." 
                         className="w-full text-xs border border-slate-200 p-2.5 rounded focus:ring-1 focus:ring-[#00639C]"
                       />
                     </div>
                     <div className="md:col-span-2 flex justify-end">
-                      <button
+                      <button 
                         type="submit"
                         className="bg-[#003667] text-white text-xs font-bold px-6 py-2 rounded cursor-pointer"
                       >
@@ -1249,8 +1250,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                   <form onSubmit={handleUpdateCountry} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-xs font-bold text-slate-600">COUNTRY NAME</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={editingCountry.name || ""}
                         onChange={e => setEditingCountry({ ...editingCountry, name: e.target.value })}
                         className="w-full text-xs border border-amber-200 bg-white p-2.5 rounded"
@@ -1258,8 +1259,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-600">EMOJI FLAG</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={editingCountry.flag || ""}
                         onChange={e => setEditingCountry({ ...editingCountry, flag: e.target.value })}
                         className="w-full text-xs border border-amber-200 bg-white p-2.5 rounded"
@@ -1267,23 +1268,23 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                     </div>
                     <div className="md:col-span-2">
                       <label className="text-xs font-bold text-slate-600">MARKET DESCRIPTION</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         value={editingCountry.description || ""}
                         onChange={e => setEditingCountry({ ...editingCountry, description: e.target.value })}
                         className="w-full text-xs border border-amber-200 bg-white p-2.5 rounded"
                       />
                     </div>
                     <div className="md:col-span-2 flex justify-end gap-2">
-                      <button
-                        type="button"
+                      <button 
+                        type="button" 
                         onClick={() => setEditingCountry(null)}
                         className="bg-slate-300 text-slate-800 text-xs px-4 py-2 rounded uppercase font-bold"
                       >
                         Cancel
                       </button>
-                      <button
-                        type="submit"
+                      <button 
+                        type="submit" 
                         className="bg-[#7F3700] text-white text-xs px-5 py-2 rounded uppercase font-bold"
                       >
                         Save Market
@@ -1309,13 +1310,13 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                         </div>
                       </div>
                       <div className="flex gap-2 shrink-0">
-                        <button
+                        <button 
                           onClick={() => { setEditingCountry(c); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                           className="p-1.5 text-slate-500 hover:text-[#00639C]"
                         >
                           <Edit3 className="w-4 h-4" />
                         </button>
-                        <button
+                        <button 
                           onClick={() => handleDeleteCountry(c.id)}
                           className="p-1.5 text-rose-500 hover:text-rose-700"
                         >
@@ -1332,13 +1333,13 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
           {/* TAB: INQUIRIES LOG */}
           {activeTab === "inquiries" && (
             <div className="space-y-6">
-
+              
               {/* Filter controls row */}
               <div className="bg-white p-5 rounded-lg shadow-sm border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex flex-col sm:flex-row gap-3 items-center w-full sm:w-auto">
                   <div className="relative w-full sm:w-64">
                     <Search className="absolute left-3 top-2.5 w-4.5 h-4.5 text-slate-400" />
-                    <input
+                    <input 
                       type="text"
                       placeholder="Search buyer catalog..."
                       value={inquirySearch}
@@ -1346,8 +1347,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                       className="w-full text-xs border border-slate-200 pl-9 pr-3 py-2 rounded focus:outline-none focus:ring-1 focus:ring-[#003667]"
                     />
                   </div>
-
-                  <select
+                  
+                  <select 
                     value={inquiryCountryFilter}
                     onChange={e => setInquiryCountryFilter(e.target.value)}
                     className="w-full sm:w-44 text-xs border border-slate-200 bg-white p-2.5 rounded focus:outline-none"
@@ -1360,14 +1361,14 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                 </div>
 
                 <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
-                  <button
+                  <button 
                     onClick={fetchInquiries}
                     className="p-2 text-slate-600 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 rounded"
                     title="Refresh List"
                   >
                     <RefreshCw className="w-4 h-4" />
                   </button>
-                  <button
+                  <button 
                     onClick={handleExportCSV}
                     className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded flex items-center gap-2 cursor-pointer shadow-sm uppercase tracking-wide"
                   >
@@ -1387,7 +1388,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                 ) : filteredInquiries.length > 0 ? (
                   filteredInquiries.map(inq => (
                     <div key={inq.id} className="bg-white rounded-lg shadow-sm border border-slate-200 hover:border-[#00639C]/40 transition-colors p-6 space-y-4">
-
+                      
                       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-slate-100 pb-3">
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
@@ -1409,7 +1410,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                           <span className="bg-[#7F3700]/10 text-[#7F3700] border border-[#7F3700]/25 font-bold px-3 py-1 text-xs rounded uppercase tracking-wide">
                             Qty Requested: {inq.quantity}
                           </span>
-                          <button
+                          <button 
                             onClick={() => handleDeleteInquiry(inq.id)}
                             className="p-1.5 bg-rose-50 text-rose-600 rounded border border-rose-200 hover:bg-rose-100 cursor-pointer"
                             title="Delete Inquiry"
@@ -1444,47 +1445,47 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
           {activeTab === "settings" && (
             <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 md:p-8">
               <form onSubmit={handleUpdateSettings} className="space-y-6">
-
+                
                 <h3 className="font-display font-bold text-[#003667] text-md uppercase border-b border-slate-100 pb-2">Primary Trade Contacts</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
                     <label className="text-xs font-bold text-slate-500 block mb-1">GLOBAL HOTLINE / TELEPHONE</label>
-                    <input
-                      type="text"
+                    <input 
+                      type="text" 
                       value={settingsForm.phone}
                       onChange={e => setSettingsForm({ ...settingsForm, phone: e.target.value })}
-                      placeholder="+91 98907 61639"
+                      placeholder="+91 98907 61639" 
                       className="w-full text-xs border border-slate-200 bg-slate-50 p-2.5 rounded"
                     />
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500 block mb-1">WHATSAPP DIRECT INQUIRY NUMBER</label>
-                    <input
-                      type="text"
+                    <input 
+                      type="text" 
                       value={settingsForm.whatsappNumber}
                       onChange={e => setSettingsForm({ ...settingsForm, whatsappNumber: e.target.value })}
-                      placeholder="+919890761639"
+                      placeholder="+919890761639" 
                       className="w-full text-xs border border-slate-200 bg-slate-50 p-2.5 rounded"
                     />
                     <span className="text-[10px] text-slate-400 font-mono">Input digits only starting with country code. Used for floating widget.</span>
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500 block mb-1">PUBLIC EMAIL ADDRESS</label>
-                    <input
-                      type="email"
+                    <input 
+                      type="email" 
                       value={settingsForm.email}
                       onChange={e => setSettingsForm({ ...settingsForm, email: e.target.value })}
-                      placeholder="export@powervegexim.com"
+                      placeholder="export@powervegexim.com" 
                       className="w-full text-xs border border-slate-200 bg-slate-50 p-2.5 rounded"
                     />
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500 block mb-1">HEADQUARTERS ADDRESS</label>
-                    <input
-                      type="text"
+                    <input 
+                      type="text" 
                       value={settingsForm.address}
                       onChange={e => setSettingsForm({ ...settingsForm, address: e.target.value })}
-                      placeholder="Lasalgaon Road, Pimpalgaon Baswant, Nashik, India"
+                      placeholder="Lasalgaon Road, Pimpalgaon Baswant, Nashik, India" 
                       className="w-full text-xs border border-slate-200 bg-slate-50 p-2.5 rounded"
                     />
                   </div>
@@ -1494,8 +1495,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                 <div className="space-y-4">
                   <div>
                     <label className="text-xs font-bold text-slate-500 block mb-1">MAIN LANDING HERO BANNER TITLE</label>
-                    <input
-                      type="text"
+                    <input 
+                      type="text" 
                       value={settingsForm.bannerTitle}
                       onChange={e => setSettingsForm({ ...settingsForm, bannerTitle: e.target.value })}
                       className="w-full text-xs border border-slate-200 bg-slate-50 p-2.5 rounded"
@@ -1503,7 +1504,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500 block mb-1">HERO SUBTITLE PROPAGANDA</label>
-                    <textarea
+                    <textarea 
                       rows={3}
                       value={settingsForm.bannerSubtitle}
                       onChange={e => setSettingsForm({ ...settingsForm, bannerSubtitle: e.target.value })}
@@ -1516,8 +1517,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
                     <label className="text-xs font-bold text-slate-500 block mb-1">FACEBOOK URL</label>
-                    <input
-                      type="text"
+                    <input 
+                      type="text" 
                       value={settingsForm.facebookUrl || ""}
                       onChange={e => setSettingsForm({ ...settingsForm, facebookUrl: e.target.value })}
                       placeholder="https://facebook.com/powerveg"
@@ -1526,8 +1527,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500 block mb-1">INSTAGRAM URL</label>
-                    <input
-                      type="text"
+                    <input 
+                      type="text" 
                       value={settingsForm.instagramUrl || ""}
                       onChange={e => setSettingsForm({ ...settingsForm, instagramUrl: e.target.value })}
                       placeholder="https://instagram.com/powerveg"
@@ -1536,8 +1537,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500 block mb-1">LINKEDIN URL</label>
-                    <input
-                      type="text"
+                    <input 
+                      type="text" 
                       value={settingsForm.linkedinUrl || ""}
                       onChange={e => setSettingsForm({ ...settingsForm, linkedinUrl: e.target.value })}
                       placeholder="https://linkedin.com/company/powerveg"
@@ -1546,8 +1547,8 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500 block mb-1">TWITTER/X URL</label>
-                    <input
-                      type="text"
+                    <input 
+                      type="text" 
                       value={settingsForm.twitterUrl || ""}
                       onChange={e => setSettingsForm({ ...settingsForm, twitterUrl: e.target.value })}
                       placeholder="https://twitter.com/powerveg"
@@ -1557,7 +1558,7 @@ export default function AdminPanel({ onClose, publicData, onRefreshData }: Admin
                 </div>
 
                 <div className="flex justify-end pt-4 border-t border-slate-100">
-                  <button
+                  <button 
                     type="submit"
                     className="bg-[#003667] text-white text-xs font-bold px-8 py-3 rounded hover:bg-[#00639C] uppercase tracking-wider shadow cursor-pointer"
                   >

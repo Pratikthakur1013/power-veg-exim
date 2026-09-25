@@ -1,13 +1,14 @@
 import React, { Suspense, lazy, useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
-import AuthGuard from "./components/auth/AuthGuard";
-import App from "./App";
+import AuthGuard from "./pages/auth/AuthGuard";
+import App from "./pages/HomePage";
 // Lazy load AdminPanel and Auth pages to keep main site bundle lean
-const AdminPanel = lazy(() => import("./components/AdminPanel"));
-const LoginPage = lazy(() => import("./components/auth/LoginPage"));
-const ForgotPassword = lazy(() => import("./components/auth/ForgotPassword"));
-const ResetPassword = lazy(() => import("./components/auth/ResetPassword"));
+const AdminPanel = lazy(() => import("./pages/AdminPanel"));
+const LoginPage = lazy(() => import("./pages/auth/LoginPage"));
+const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
+const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
+
 
 // ─── Admin Dashboard Page ─────────────────────────────────────────────────
 

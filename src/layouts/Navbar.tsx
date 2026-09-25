@@ -149,11 +149,13 @@ export default function Navbar() {
     <>
       {/* ===================== SHARED HEADER ===================== */}
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-          isScrolled
-            ? "py-3 bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm"
-            : "py-5 bg-gradient-to-b from-white/90 to-transparent backdrop-blur-sm"
-        }`}
+        className="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-4 backdrop-blur-md"
+        style={{
+          background: isScrolled
+            ? "rgba(11,16,32,0.72)"
+            : "linear-gradient(to bottom, rgba(11,16,32,0.6) 0%, rgba(11,16,32,0.2) 70%, transparent 100%)",
+          borderBottom: isScrolled ? "1px solid rgba(255,255,255,0.07)" : "none",
+        }}
       >
         <div className="max-w-7xl mx-auto px-6 xl:px-12 flex items-center justify-between">
 
@@ -227,8 +229,13 @@ export default function Navbar() {
               <button
                 key={id}
                 onClick={() => scrollToSection(id)}
-                className="relative px-4 py-2 text-sm font-semibold text-slate-600 hover:text-[#003667] uppercase tracking-widest transition-colors duration-200 cursor-pointer group"
-                style={{ fontFamily: "'Inter', sans-serif" }}
+                className="relative px-4 py-2 text-sm font-semibold uppercase tracking-widest transition-colors duration-200 cursor-pointer group"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  color: "rgba(255,255,255,0.82)",
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#ffffff"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.82)"; }}
               >
                 {label}
                 <span className="absolute bottom-0 left-4 right-4 h-px bg-[#FF7A1A] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
@@ -252,8 +259,9 @@ export default function Navbar() {
             <button
               onClick={() => setShowLangMenu(!showLangMenu)}
               className={`flex items-center gap-1 transition-colors cursor-pointer p-2 ${
-                isTranslating ? "text-[#FF7A1A] cursor-wait" : "text-slate-600 hover:text-[#003667]"
+                isTranslating ? "text-[#FF7A1A] cursor-wait" : ""
               }`}
+              style={{ color: "rgba(255,255,255,0.75)" }}
               aria-label="Select language"
               disabled={isTranslating}
             >
@@ -294,7 +302,8 @@ export default function Navbar() {
             {/* Mobile Globe button (inline in header) */}
             <button
               onClick={() => { setMobileMenuOpen(true); setTimeout(() => setMobileLangOpen(true), 50); }}
-              className="w-9 h-9 flex items-center justify-center rounded-lg text-slate-700 hover:text-[#003667] hover:bg-slate-100/80 transition-all duration-200 notranslate"
+              className="w-9 h-9 flex items-center justify-center rounded-lg transition-all duration-200 notranslate"
+              style={{ color: "rgba(255,255,255,0.85)" }}
               aria-label="Language"
             >
               <Globe className="w-[18px] h-[18px]" />
@@ -303,11 +312,12 @@ export default function Navbar() {
             {/* Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200 cursor-pointer ${
-                isScrolled
-                  ? "bg-slate-100 border border-slate-200 text-slate-800 hover:bg-slate-200"
-                  : "bg-white/70 border border-white/50 text-slate-800 hover:bg-white/90"
-              }`}
+              className="w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200 cursor-pointer"
+              style={{
+                background: "rgba(255,255,255,0.1)",
+                border: "1px solid rgba(255,255,255,0.18)",
+                color: "#ffffff",
+              }}
               aria-label="Open menu"
             >
               <Menu className="w-5 h-5" />

@@ -31,6 +31,24 @@
   background: #FF7A1A;
 }
 
+/* Hero float animation for visual card */
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+.hero-float {
+  animation: hero-float 6s ease-in-out infinite;
+}
+
+/* Hero shine sweep */
+@keyframes hero-shine {
+  0%   { transform: translateX(-100%) rotate(15deg); }
+  100% { transform: translateX(300%) rotate(15deg); }
+}
+.hero-shine {
+  animation: hero-shine 3.5s ease-in-out infinite;
+}
+
 /* Custom globally accessible keyframe animations & scroll helper classes */
 .blur-backdrop {
   backdrop-filter: blur(12px);

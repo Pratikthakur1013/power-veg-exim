@@ -1,9 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
-import { useScroll } from "motion/react";
+import React, { useEffect } from "react";
 
 import Navbar from "../layouts/Navbar";
-import ScrollyCanvas from "../components/ScrollyCanvas";
-import Overlay from "../layouts/Overlay";
+import StaticHero from "../layouts/StaticHero";
 import Products from "../components/Products";
 import AboutUs from "../components/AboutUs";
 import Markets from "../components/Markets";
@@ -11,7 +9,6 @@ import Contact from "../components/Contact";
 import Footer from "../layouts/Footer";
 
 export default function App() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     // Listen for the hidden admin trigger from Navbar logo
     const handleOpenAdmin = () => {
@@ -35,22 +32,11 @@ export default function App() {
     loadData();
   }, []);
 
-  /**
-   * scrollYProgress tracks 0→1 across the entire 500vh container.
-   * ONE hook at root level, passed as prop — no hook-in-hook violations.
-   */
-  const { scrollYProgress } = useScroll({
-    target: scrollContainerRef,
-    offset: ["start start", "end end"],
-  });
-
   return (
     <div className="relative bg-[#0B1020] text-slate-900 font-sans selection:bg-[#FF7A1A]/25 selection:text-white">
 
-
       {/* FLOAT CONTACT WIDGETS */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col items-center gap-3">
-
         {/* WhatsApp Button */}
         <a
           href="https://wa.me/919890761639?text=Hello%20Power%20Veg%20Exim%2C%20I%20would%20like%20to%20inquire%20about%20your%20export%20products."
@@ -80,39 +66,10 @@ export default function App() {
       <Navbar />
 
       <main>
-        {/*
-         * ┌─────────────────────────────────────────────────────────────┐
-         * │  500vh scroll driver                                        │
-         * │  The sticky child (h-screen) pins for the whole scroll.    │
-         * │  Canvas + Overlay both live INSIDE that sticky div so      │
-         * │  every `absolute inset-0` scene is relative to 100vh.      │
-         * └─────────────────────────────────────────────────────────────┘
-         */}
-        <div ref={scrollContainerRef} className="relative w-full h-[500vh]">
-          {/*
-           * Sticky viewport — pointer-events-none on the whole frame so
-           * wheel/touch events fall through to the 500vh scroll driver.
-           * Only Scene-6 CTA buttons restore pointer-events-auto.
-           */}
-          <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none">
+        {/* ── Static Hero (replaces the heavy scroll-driven canvas) ── */}
+        <StaticHero />
 
-            {/* Background gradient tint for readability */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/70 z-[1]" />
-
-            {/* Image sequence canvas (desktop) / static hero (mobile) */}
-            <div className="absolute inset-0 z-0">
-              <ScrollyCanvas scrollYProgress={scrollYProgress} />
-            </div>
-
-            {/* Cinematic text scenes — each scene is absolute inset-0 WITHIN h-screen */}
-            <div className="absolute inset-0 z-20">
-              <Overlay scrollYProgress={scrollYProgress} />
-            </div>
-
-          </div>
-        </div>
-
-        {/* ── Below-the-fold page sections ────────────────────────────────── */}
+        {/* ── Below-the-fold page sections ── */}
         <Products />
         <AboutUs />
         <Markets />
